@@ -43,3 +43,31 @@ bot.onTextMessage(/^hi|hello$/i, (message, response) =>
 bot.onTextMessage(/./, (message, response) => {
     response.send(new TextMessage(`you entered ${message.text}`))
 });
+
+const SAMPLE_RICH_MEDIA = {
+    "ButtonsGroupColumns": 6,
+    "ButtonsGroupRows": 2,
+    "BgColor": "#FFFFFF",
+    "Buttons": [{
+        "ActionBody": "http://www.website.com/go_here",
+        "ActionType": "open-url",
+        "BgMediaType": "picture",
+        "Image": "http://www.images.com/img.jpg",
+        "BgColor": "#000000",
+        "TextOpacity": 60,
+        "Rows": 4,
+        "Columns": 6
+    }, {
+        "ActionBody": "http://www.website.com/go_here",
+        "ActionType": "open-url",
+        "BgColor": "#85bb65",
+        "Text": "Buy",
+        "TextOpacity": 60,
+        "Rows": 1,
+        "Columns": 6
+    }]
+};
+
+bot.onTextMessage(/sample/, (message, response) => {
+    response.send(new RichMedia(SAMPLE_RICH_MEDIA))
+});
