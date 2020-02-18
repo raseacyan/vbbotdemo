@@ -5,7 +5,7 @@ const winston = require('winston');
 const wcf = require('winston-console-formatter');
 var request = require('request');
 
-const logger = new winston.Logger({
+const logger = new winston.createLogger({
   level: 'debug',
 });
  
