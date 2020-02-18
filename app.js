@@ -2,7 +2,8 @@ const ViberBot  = require('viber-bot').Bot;
 const BotEvents = require('viber-bot').Events;
 const TextMessage = require('viber-bot').Message.Text;
 const winston = require('winston');
-const toYAML = require('winston-console-formatter');
+const wcf = require('winston-console-formatter');
+const { formatter, timestamp } = wcf();
 var request = require('request');
 
 function createLogger() {
@@ -10,7 +11,7 @@ function createLogger() {
         level: "debug" // We recommend using the debug level for development
     });
 
-    logger.add(winston.transports.Console, toYAML.config());
+    logger.add(winston.transports.Console, { formatter, timestamp });
     return logger;
 }
 
