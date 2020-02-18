@@ -6,16 +6,16 @@ const wcf = require('winston-console-formatter');
 const { formatter, timestamp } = wcf();
 var request = require('request');
 
-function createLogger() {
-    const logger = winston.createLogger({
-        level: "debug" // We recommend using the debug level for development
-    });
-
-    logger.add(winston.transports.Console, { formatter, timestamp });
-    return logger;
-}
-
-const logger = createLogger();
+const logger = new winston.Logger({
+  level: 'silly',
+});
+ 
+const { formatter, timestamp } = wcf();
+ 
+logger.add(winston.transports.Console, {
+  formatter,
+  timestamp,
+});
 
 // Creating the bot with access token, name and avatar
 const bot = new ViberBot(logger, {
