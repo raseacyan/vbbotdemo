@@ -1,6 +1,7 @@
 const ViberBot  = require('viber-bot').Bot;
 const BotEvents = require('viber-bot').Events;
 const TextMessage = require('viber-bot').Message.Text;
+const RichMediaMessage = require('viber-bot').Message.RichMedia;
 const winston = require('winston');
 const wcf = require('winston-console-formatter');
 var request = require('request');
@@ -69,5 +70,5 @@ const SAMPLE_RICH_MEDIA = {
 };
 
 bot.onTextMessage(/sample/, (message, response) => {
-    response.send(new RichMedia(SAMPLE_RICH_MEDIA))
+    response.send(new RichMediaMessage(SAMPLE_RICH_MEDIA))
 });
