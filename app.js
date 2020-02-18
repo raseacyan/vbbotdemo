@@ -5,24 +5,16 @@ const winston = require('winston');
 const toYAML = require('winston-console-formatter');
 var request = require('request');
 
-function buildConsoleLogger (level = 'info') {
- return function (api) {
-  return winston.createLogger({
-   format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.colorize(),
-    winston.format.printf(info => {
-     return `${api.id} @ ${info.timestamp} - ${info.level}: ${info.message} ${stringifyExtraMessagePropertiesForConsole(info)}`
-    })
-   ),
-   level,
-   levels: winston.config.syslog.levels,
-   transports: [ new winston.transports.Console() ]
-  })
- }
+function createLogger() {
+    const logger = winston.createLogger({
+        level: "debug" // We recommend using the debug level for development
+    });
+
+    logger.add(winston.transports.Console, toYAML.config());
+    return logger;
 }
 
-const logger = buildConsoleLogger('debug');
+const logger = createLogger();
 
 // Creating the bot with access token, name and avatar
 const bot = new ViberBot(logger, {
