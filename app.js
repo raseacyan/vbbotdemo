@@ -39,10 +39,10 @@ bot.onSubscribe(response => {
 
 bot.onTextMessage(/^hi|hello$/i, (message, response) =>
     response.send(new TextMessage(`Hi there ${response.userProfile.name}. I am robot`)));
-
+/*
 bot.onTextMessage(/./, (message, response) => {
     response.send(new TextMessage(`you entered ${message.text}`))
-});
+});*/
 
 const SAMPLE_RICH_MEDIA = {
     "ButtonsGroupColumns": 6,
