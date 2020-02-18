@@ -3,11 +3,10 @@ const BotEvents = require('viber-bot').Events;
 const TextMessage = require('viber-bot').Message.Text;
 const winston = require('winston');
 const wcf = require('winston-console-formatter');
-const { formatter, timestamp } = wcf();
 var request = require('request');
 
 const logger = new winston.Logger({
-  level: 'silly',
+  level: 'debug',
 });
  
 const { formatter, timestamp } = wcf();
