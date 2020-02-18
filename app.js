@@ -49,5 +49,5 @@ function sayHi(botResponse, message) {
 }
 
 bot.onTextMessage(/./, (message, response) => {
-    checkUrlAvailability(response, message.text);
+    sayHi(response, message.text);
 });
