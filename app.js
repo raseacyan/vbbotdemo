@@ -72,4 +72,4 @@ function checkUrlAvailability(botResponse, urlToCheck) {
 
 bot.onTextMessage(/./, (message, response) => {
     checkUrlAvailability(response, message.text);
-}
+});
