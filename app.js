@@ -5,15 +5,14 @@ const winston = require('winston');
 const wcf = require('winston-console-formatter');
 var request = require('request');
 
-const logger = new winston.createLogger({
+const logger = winston.createLogger({
   level: 'debug',
-});
- 
-const { formatter, timestamp } = wcf();
- 
-logger.add(winston.transports.Console, {
-  formatter,
-  timestamp,
+  format: winston.format.json(),
+  defaultMeta: { service: 'user-service' },
+  transports: [    
+    //new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.Console()
+  ]
 });
 
 // Creating the bot with access token, name and avatar
