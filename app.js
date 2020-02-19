@@ -45,7 +45,14 @@ bot.onTextMessage(/./, (message, response) => {
     response.send(new TextMessage(`you entered ${message.text}`))
 });*/
 
-const SAMPLE_RICH_MEDIA = {
+
+
+bot.onTextMessage(/view/, (message, response) => {
+   viewTasks(message, response);  
+});
+
+function viewTasks(message, response){
+    const SAMPLE_RICH_MEDIA = {
     "ButtonsGroupColumns": 6,
     "ButtonsGroupRows": 7,
     "BgColor": "#FFFFFF",
@@ -80,7 +87,6 @@ const SAMPLE_RICH_MEDIA = {
          
          
       ]
-};
-
-bot.onTextMessage(/sample/, (message, response) => 
-    response.send(new RichMediaMessage(SAMPLE_RICH_MEDIA)));
+    };
+    response.send(new RichMediaMessage(SAMPLE_RICH_MEDIA))
+}
