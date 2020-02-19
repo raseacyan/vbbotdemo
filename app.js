@@ -119,7 +119,7 @@ function viewTasks(message, response){
                 "Rows":1,
                 "ActionType":"reply",
                 "ActionBody":"https://www.google.com",
-                "Text":"Delete",
+                "Text":"delete:"+data.key,
                 "TextSize":"large",
                 "TextVAlign":"middle",
                 "TextHAlign":"middle",
