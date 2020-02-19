@@ -76,6 +76,7 @@ bot.onTextMessage(/./, (message, response) => {
         case "add":  
             addNewTask = true;          
             addTask(message, response);
+            break;
         default:
             unknownCommand(message, response);
             
