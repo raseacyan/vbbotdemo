@@ -33,7 +33,7 @@ const logger = winston.createLogger({
 // Creating the bot with access token, name and avatar
 const bot = new ViberBot(logger, {
     authToken: process.env.AUTH_TOKEN, // <--- Paste your token here
-    name: "Is It Up",  // <--- Your bot name here
+    name: "To Do App",  // <--- Your bot name here
     avatar: "http://api.adorable.io/avatar/200/isitup" // It is recommended to be 720x720, and no more than 100kb.
 });
 
