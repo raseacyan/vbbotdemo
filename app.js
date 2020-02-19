@@ -44,10 +44,13 @@ bot.onTextMessage(/^hi|hello$/i, (message, response) =>
 bot.onTextMessage(/./, (message, response) => {
     switch(message.text){
         case "view":
-            viewTasks();
+            viewTasks(message, response);
             break;
         default:
             response.send(new TextMessage(`I don't quite understand your command`));
+            response.send(new TextMessage(`To view tasks, type 'view'`));
+            response.send(new TextMessage(`To add new task, type 'new'`));
+            response.send(new TextMessage(`If you forget who you are, type 'who am i'`));
     }
 });
 
@@ -56,6 +59,10 @@ bot.onTextMessage(/./, (message, response) => {
 bot.onTextMessage(/view/, (message, response) => {
    viewTasks(message, response);  
 });*/
+
+const whoAmI = (message, response) => {
+    response.send(new TextMessage(`Hello ${response.userProfile.name}! It's so nice to meet you`));
+}
 
 function viewTasks(message, response){
     const SAMPLE_RICH_MEDIA = {
