@@ -40,16 +40,22 @@ bot.onSubscribe(response => {
 
 bot.onTextMessage(/^hi|hello$/i, (message, response) =>
     response.send(new TextMessage(`Hi there ${response.userProfile.name}. I am robot`)));
-/*
+
 bot.onTextMessage(/./, (message, response) => {
-    response.send(new TextMessage(`you entered ${message.text}`))
-});*/
+    switch(message.text){
+        case "view":
+            viewTasks();
+            break;
+        default:
+            response.send(new TextMessage(`I don't quite understand your command`));
+    }
+});
 
 
-
+/*
 bot.onTextMessage(/view/, (message, response) => {
    viewTasks(message, response);  
-});
+});*/
 
 function viewTasks(message, response){
     const SAMPLE_RICH_MEDIA = {
