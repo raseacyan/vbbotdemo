@@ -55,12 +55,17 @@ bot.onSubscribe(response => {
 bot.onTextMessage(/^hi|hello$/i, (message, response) =>
     response.send(new TextMessage(`Hi there ${response.userProfile.name}. I am robot`)));
 
+bot.onTextMessage(/^delete:/i, (message, response) => {
+    let taskId = message.text.slice(7);
+    deleteTask(taskId);
+});
+
 bot.onTextMessage(/./, (message, response) => {
     const text = message.text.toLowerCase();
     switch(text){
         case "view":
             viewTasks(message, response);
-            break;
+            break;        
         case "who am i":
             whoAmI(message, response);
             break;
@@ -120,7 +125,6 @@ function viewTasks(message, response){
                 "TextHAlign":"middle",
                 
             }
-
             
             arr.push(img);
             arr.push(body);
@@ -135,11 +139,15 @@ function viewTasks(message, response){
         };
 
         response.send(new RichMediaMessage(SAMPLE_RICH_MEDIA));
+    });    
+}
 
+function deleteTask(taskId, response){          
+  let itemRemove = itemsRef.child(taskId);          
+  itemRemove.remove();
+  notifyDelete(response);
+}
 
-    }); 
-
-
-
-   
+function notifyDelete(response){
+   response.send(new TextMessage(`Task has been deleted`));
 }
