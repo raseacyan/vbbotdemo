@@ -53,14 +53,14 @@ const SAMPLE_RICH_MEDIA = {
          
          {
             "Columns":6,
-            "Rows":3,
+            "Rows":5,
             "ActionType":"open-url",
             "ActionBody":"https://www.google.com",
             "Image":"https://store-images.s-microsoft.com/image/apps.49795.13510798887304077.4ce9da47-503d-4e6e-9fb3-2e78a99788db.b6188938-8471-4170-83b8-7fc4d9d8af6a?mode=scale&q=90&h=270&w=270&background=%230078D7"
          },
          {
             "Columns":6,
-            "Rows":2,
+            "Rows":1,
             "Text":"to do",
             "ActionType":"open-url",
             "ActionBody":"https://www.google.com",
@@ -70,7 +70,7 @@ const SAMPLE_RICH_MEDIA = {
          },
          {
             "Columns":6,
-            "Rows":2,
+            "Rows":1,
             "ActionType":"reply",
             "ActionBody":"https://www.google.com",
             "Text":"<font color=#ffffff>Delete</font>",
