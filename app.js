@@ -5,6 +5,20 @@ const RichMediaMessage = require('viber-bot').Message.RichMedia;
 const winston = require('winston');
 const wcf = require('winston-console-formatter');
 var request = require('request');
+const firebase = require("firebase-admin");
+
+//firebase initialize
+firebase.initializeApp({
+  credential: firebase.credential.cert({
+    "private_key": process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    "client_email": process.env.FIREBASE_CLIENT_EMAIL,
+    "project_id": process.env.FIREBASE_PROJECT_ID,
+  }),
+  databaseURL: "https://fir-b7a51.firebaseio.com"
+});
+
+var db = firebase.database();
+var itemsRef = db.ref("restricted_access/secret_document/items");
 
 const logger = winston.createLogger({
   level: 'debug',
@@ -75,41 +89,57 @@ const whoAmI = (message, response) => {
 }
 
 function viewTasks(message, response){
-    const SAMPLE_RICH_MEDIA = {
+
+    itemsRef.once("value", function(snapshot) {
+            
+            var arr = [];
+            snapshot.forEach(function(data) {
+                const img = {
+                        "Columns":6,
+                        "Rows":5,
+                        "ActionType":"none",           
+                        "Image":"https://store-images.s-microsoft.com/image/apps.49795.13510798887304077.4ce9da47-503d-4e6e-9fb3-2e78a99788db.b6188938-8471-4170-83b8-7fc4d9d8af6a?mode=scale&q=90&h=270&w=270&background=%230078D7"
+                };
+                const body = {
+                    "Columns":6,
+                    "Rows":1,
+                    "Text": data.val().details,
+                    "ActionType":"none",
+                    "TextSize":"medium",
+                    "TextVAlign":"middle",
+                    "TextHAlign":"left"
+                };
+                const cta = {
+                    "Columns":6,
+                    "Rows":1,
+                    "ActionType":"reply",
+                    "ActionBody":"https://www.google.com",
+                    "Text":"<font color=#ffffff>Delete</font>",
+                    "TextSize":"large",
+                    "TextVAlign":"middle",
+                    "TextHAlign":"middle",
+                    "Image":"https://s14.postimg.org/4mmt4rw1t/Button.png"
+                }
+
+                
+                arr.push(img);
+                arr.push(body);
+                arr.push(cta);
+            }); 
+
+                const SAMPLE_RICH_MEDIA = {
     "ButtonsGroupColumns": 6,
     "ButtonsGroupRows": 7,
     "BgColor": "#FFFFFF",
-    "Buttons":[
-         
-         {
-            "Columns":6,
-            "Rows":5,
-            "ActionType":"none",           
-            "Image":"https://store-images.s-microsoft.com/image/apps.49795.13510798887304077.4ce9da47-503d-4e6e-9fb3-2e78a99788db.b6188938-8471-4170-83b8-7fc4d9d8af6a?mode=scale&q=90&h=270&w=270&background=%230078D7"
-         },
-         {
-            "Columns":6,
-            "Rows":1,
-            "Text":"to do",
-            "ActionType":"none",
-            "TextSize":"medium",
-            "TextVAlign":"middle",
-            "TextHAlign":"left"
-         },
-         {
-            "Columns":6,
-            "Rows":1,
-            "ActionType":"reply",
-            "ActionBody":"https://www.google.com",
-            "Text":"<font color=#ffffff>Delete</font>",
-            "TextSize":"large",
-            "TextVAlign":"middle",
-            "TextHAlign":"middle",
-            "Image":"https://s14.postimg.org/4mmt4rw1t/Button.png"
-         },
-         
-         
-      ]
+    "Buttons": arr,
     };
-    response.send(new RichMediaMessage(SAMPLE_RICH_MEDIA))
+
+     response.send(new RichMediaMessage(SAMPLE_RICH_MEDIA));
+
+
+    }); 
+
+
+
+   
 }
