@@ -56,7 +56,7 @@ bot.onTextMessage(/^hi|hello$/i, (message, response) =>
     response.send(new TextMessage(`Hi there ${response.userProfile.name}. I am robot`)));
 
 bot.onTextMessage(/^delete:/i, (message, response) => {
-    response.send(new TextMessage(`delete press`))
+    response.send(new TextMessage(`delete press ${message.text}`))
     //let taskId = message.text.slice(7);
     //deleteTask(taskId);
 });
