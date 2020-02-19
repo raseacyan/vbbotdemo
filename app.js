@@ -6,6 +6,9 @@ const winston = require('winston');
 const wcf = require('winston-console-formatter');
 var request = require('request');
 const firebase = require("firebase-admin");
+let addNewTask = false;
+
+
 
 //firebase initialize
 firebase.initializeApp({
@@ -70,14 +73,11 @@ bot.onTextMessage(/./, (message, response) => {
         case "who am i":
             whoAmI(message, response);
             break;
+        case "add":  
+            addNewTask = true;          
+            addTask(message, response);
         default:
-            response.send(new TextMessage(`I don't quite understand your command`)).then(()=>{
-                return response.send(new TextMessage(`To view tasks, type 'view'`)).then(()=>{
-                   return response.send(new TextMessage(`To add new task, type 'new'`)).then(()=>{
-                    return response.send(new TextMessage(`If you forget who you are, type 'who am i'`));
-                   }); 
-                });
-            });
+            unknownCommand(message, response);
             
             
             
@@ -92,6 +92,30 @@ bot.onTextMessage(/view/, (message, response) => {
 
 const whoAmI = (message, response) => {
     response.send(new TextMessage(`Hello ${response.userProfile.name}! It's so nice to meet you`));
+}
+
+function unknownCommand(message, response){
+    response.send(new TextMessage(`I don't quite understand your command`)).then(()=>{
+                return response.send(new TextMessage(`To view tasks, type 'view'`)).then(()=>{
+                   return response.send(new TextMessage(`To add new task, type 'new'`)).then(()=>{
+                    return response.send(new TextMessage(`If you forget who you are, type 'who am i'`));
+                   }); 
+                });
+            });
+}
+
+function addTask(message, response){
+    response.send(new TextMessage(`Enter new task`));
+    
+    if(addNewTask){
+        let newItemRef = itemsRef.push(message.text);          
+        let itemId = newItemRef.key;
+        addNewTask = false;
+        response.send(new TextMessage(`Great! You have added new task`));
+    }else{
+        unknownCommand(message, response);
+    }  
+
 }
 
 function viewTasks(message, response){
