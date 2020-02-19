@@ -112,7 +112,7 @@ function addTask(message, response){
 }
 
 function saveTask(message, response){
-        let newItemRef = itemsRef.push(message.text);          
+        let newItemRef = itemsRef.push({"details": message.text});          
         let itemId = newItemRef.key;
         addNewTask = false;
         response.send(new TextMessage(`Great! You have added new task`));   
