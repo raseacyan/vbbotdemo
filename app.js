@@ -69,14 +69,13 @@ const SAMPLE_RICH_MEDIA = {
          },
          {
             "Columns":6,
-            "Rows":1,
-            "ActionType":"reply",
+            "Rows":2,
+            "Text":"<font color=#323232><b>Headphones with Microphone, On-ear Wired earphones</b></font><font color=#777777><br>Sound Intone </font><font color=#6fc133>$17.99</font>",
+            "ActionType":"open-url",
             "ActionBody":"https://www.google.com",
-            "Text":"<font color=#ffffff>Buy</font>",
-            "TextSize":"large",
+            "TextSize":"medium",
             "TextVAlign":"middle",
-            "TextHAlign":"middle",
-            "Image":"https://s14.postimg.org/4mmt4rw1t/Button.png"
+            "TextHAlign":"left"
          },
          {
             "Columns":6,
