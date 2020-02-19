@@ -47,10 +47,16 @@ bot.onTextMessage(/./, (message, response) => {
             viewTasks(message, response);
             break;
         default:
-            response.send(new TextMessage(`I don't quite understand your command`));
-            response.send(new TextMessage(`To view tasks, type 'view'`));
-            response.send(new TextMessage(`To add new task, type 'new'`));
-            response.send(new TextMessage(`If you forget who you are, type 'who am i'`));
+            response.send(new TextMessage(`I don't quite understand your command`)).then(()=>{
+                return response.send(new TextMessage(`To view tasks, type 'view'`)).then(()=>{
+                   return response.send(new TextMessage(`To add new task, type 'new'`)).then(()=>{
+                    return response.send(new TextMessage(`If you forget who you are, type 'who am i'`));
+                   }); 
+                });
+            });
+            
+            
+            
     }
 });
 
