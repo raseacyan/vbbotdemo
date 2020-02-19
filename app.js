@@ -42,9 +42,13 @@ bot.onTextMessage(/^hi|hello$/i, (message, response) =>
     response.send(new TextMessage(`Hi there ${response.userProfile.name}. I am robot`)));
 
 bot.onTextMessage(/./, (message, response) => {
-    switch(message.text){
+    const text = message.text.toLowerCase();
+    switch(text){
         case "view":
             viewTasks(message, response);
+            break;
+        case "who am i":
+            whoAmI(message, response);
             break;
         default:
             response.send(new TextMessage(`I don't quite understand your command`)).then(()=>{
