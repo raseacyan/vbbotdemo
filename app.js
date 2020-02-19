@@ -73,10 +73,7 @@ bot.onTextMessage(/./, (message, response) => {
         case "who am i":
             whoAmI(message, response);
             break;
-        case "add":  
-            addNewTask = true;          
-            addTask(message, response);
-            break;
+        
         default:
             unknownCommand(message, response);
             
@@ -105,19 +102,17 @@ function unknownCommand(message, response){
             });
 }
 
+/*
 function addTask(message, response){
-    response.send(new TextMessage(`Enter new task`));
+    response.send(new TextMessage(`Enter new task`));    
     
-    if(addNewTask){
         let newItemRef = itemsRef.push(message.text);          
         let itemId = newItemRef.key;
         addNewTask = false;
         response.send(new TextMessage(`Great! You have added new task`));
-    }else{
-        unknownCommand(message, response);
-    }  
+    
 
-}
+}*/
 
 function viewTasks(message, response){
 
