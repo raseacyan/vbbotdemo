@@ -92,49 +92,49 @@ function viewTasks(message, response){
 
     itemsRef.once("value", function(snapshot) {
             
-            var arr = [];
-            snapshot.forEach(function(data) {
-                const img = {
-                        "Columns":6,
-                        "Rows":5,
-                        "ActionType":"none",           
-                        "Image":"https://store-images.s-microsoft.com/image/apps.49795.13510798887304077.4ce9da47-503d-4e6e-9fb3-2e78a99788db.b6188938-8471-4170-83b8-7fc4d9d8af6a?mode=scale&q=90&h=270&w=270&background=%230078D7"
-                };
-                const body = {
+        var arr = [];
+        snapshot.forEach(function(data) {
+            const img = {
                     "Columns":6,
-                    "Rows":1,
-                    "Text": data.val().details,
-                    "ActionType":"none",
-                    "TextSize":"medium",
-                    "TextVAlign":"middle",
-                    "TextHAlign":"left"
-                };
-                const cta = {
-                    "Columns":6,
-                    "Rows":1,
-                    "ActionType":"reply",
-                    "ActionBody":"https://www.google.com",
-                    "Text":"<font color=#ffffff>Delete</font>",
-                    "TextSize":"large",
-                    "TextVAlign":"middle",
-                    "TextHAlign":"middle",
-                    "Image":"https://s14.postimg.org/4mmt4rw1t/Button.png"
-                }
-
+                    "Rows":5,
+                    "ActionType":"none",           
+                    "Image":"https://store-images.s-microsoft.com/image/apps.49795.13510798887304077.4ce9da47-503d-4e6e-9fb3-2e78a99788db.b6188938-8471-4170-83b8-7fc4d9d8af6a?mode=scale&q=90&h=270&w=270&background=%230078D7"
+            };
+            const body = {
+                "Columns":6,
+                "Rows":1,
+                "Text": data.val().details,
+                "ActionType":"none",
+                "TextSize":"medium",
+                "TextVAlign":"middle",
+                "TextHAlign":"left"
+            };
+            const cta = {
+                "Columns":6,
+                "Rows":1,
+                "ActionType":"reply",
+                "ActionBody":"https://www.google.com",
+                "Text":"Delete",
+                "TextSize":"large",
+                "TextVAlign":"middle",
+                "TextHAlign":"middle",
                 
-                arr.push(img);
-                arr.push(body);
-                arr.push(cta);
-            }); 
+            }
 
-                const SAMPLE_RICH_MEDIA = {
-    "ButtonsGroupColumns": 6,
-    "ButtonsGroupRows": 7,
-    "BgColor": "#FFFFFF",
-    "Buttons": arr,
-    };
+            
+            arr.push(img);
+            arr.push(body);
+            arr.push(cta);
+        }); 
 
-     response.send(new RichMediaMessage(SAMPLE_RICH_MEDIA));
+        const SAMPLE_RICH_MEDIA = {
+            "ButtonsGroupColumns": 6,
+            "ButtonsGroupRows": 7,
+            "BgColor": "#FFFFFF",
+            "Buttons": arr,
+        };
+
+        response.send(new RichMediaMessage(SAMPLE_RICH_MEDIA));
 
 
     }); 
