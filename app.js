@@ -66,9 +66,7 @@ bot.onTextMessage(/^delete:/i, (message, response) => {
 
 bot.onTextMessage(/./, (message, response) => {
     const text = message.text.toLowerCase();
-    if(addNewTask){
-        saveTask(message, response);
-    }
+    
     switch(text){
         case "view":
             viewTasks(message, response);
@@ -80,7 +78,12 @@ bot.onTextMessage(/./, (message, response) => {
             addTask(message, response);
             break;
         default:
-            unknownCommand(message, response);    
+            if(addNewTask){
+                saveTask(message, response);
+            }else{
+                unknownCommand(message, response);
+            }
+                
             
     }
 });
