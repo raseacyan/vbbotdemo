@@ -58,8 +58,7 @@ bot.onSubscribe(response => {
 bot.onTextMessage(/^hi|hello$/i, (message, response) =>
     response.send(new TextMessage(`Hi there ${response.userProfile.name}. I am robot`)));
 
-bot.onTextMessage(/^delete:/i, (message, response) => {
-    
+bot.onTextMessage(/^delete:/i, (message, response) => {    
     let taskId = message.text.slice(7);
     deleteTask(taskId, response);
 });
@@ -69,11 +68,12 @@ bot.onTextMessage(/./, (message, response) => {
     
     switch(text){
         case "view":
-            viewTasks(message, response);
+            viewTasks(response);
             break;        
         case "who am i":
             whoAmI(message, response);
             break;
+        case "new":
         case "add":
             addTask(message, response);
             break;
@@ -122,7 +122,7 @@ function saveTask(message, response){
         response.send(new TextMessage(`Great! You have added new task`));   
 }
 
-function viewTasks(message, response){
+function viewTasks(response){
 
     itemsRef.once("value", function(snapshot) {
             
@@ -178,5 +178,7 @@ function deleteTask(taskId, response){
 }
 
 function notifyDelete(response){
-   response.send(new TextMessage(`Task has been deleted`));
+   response.send(new TextMessage(`Task has been deleted`)).then(()=>{
+    viewTasks(response);
+   });
 }
