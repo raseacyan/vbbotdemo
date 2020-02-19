@@ -66,6 +66,9 @@ bot.onTextMessage(/^delete:/i, (message, response) => {
 
 bot.onTextMessage(/./, (message, response) => {
     const text = message.text.toLowerCase();
+    if(addNewTask){
+        saveTask(message, response);
+    }
     switch(text){
         case "view":
             viewTasks(message, response);
@@ -73,11 +76,10 @@ bot.onTextMessage(/./, (message, response) => {
         case "who am i":
             whoAmI(message, response);
             break;
-        
+        case "add":
+            addTask(message, response);
         default:
-            unknownCommand(message, response);
-            
-            
+            unknownCommand(message, response);    
             
     }
 });
@@ -102,17 +104,19 @@ function unknownCommand(message, response){
             });
 }
 
-/*
+
 function addTask(message, response){
-    response.send(new TextMessage(`Enter new task`));    
-    
+    response.send(new TextMessage(`Enter new task`));
+    addNewTask = true;
+
+}
+
+function saveTask(message, response){
         let newItemRef = itemsRef.push(message.text);          
         let itemId = newItemRef.key;
         addNewTask = false;
-        response.send(new TextMessage(`Great! You have added new task`));
-    
-
-}*/
+        response.send(new TextMessage(`Great! You have added new task`));   
+}
 
 function viewTasks(message, response){
 
