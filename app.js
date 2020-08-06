@@ -156,7 +156,7 @@ function viewTasks(response){
             const body = {
                 "Columns":6,
                 "Rows":1,
-                "Text": data.val().details,
+                "Text": doc.data().details,
                 "ActionType":"none",
                 "TextSize":"medium",
                 "TextVAlign":"middle",
@@ -166,7 +166,7 @@ function viewTasks(response){
                 "Columns":6,
                 "Rows":1,
                 "ActionType":"reply",
-                "ActionBody": "delete:"+data.key,
+                "ActionBody": "delete:"+doc.id,
                 "Text":"delete",
                 "TextSize":"large",
                 "TextVAlign":"middle",
