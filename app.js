@@ -6,6 +6,8 @@ const winston = require('winston');
 const wcf = require('winston-console-formatter');
 var request = require('request');
 const firebase = require("firebase-admin");
+
+
 let addNewTask = false;
 
 
@@ -120,14 +122,15 @@ function addTask(message, response){
 
 function saveTask(message, response){
 
-        addNewTask = false;
+        
 
 
         db.collection('Tasks').add({
            
             details:message.text
             
-          }).then(success => {             
+          }).then(success => {  
+            addNewTask = false;           
             response.send(new TextMessage(`Great! You have added new task`)).then(()=>{
             viewTasks(response);
         });   
