@@ -58,6 +58,9 @@ bot.onSubscribe(response => {
 bot.onTextMessage(/^hi|hello$/i, (message, response) =>
     response.send(new TextMessage(`Hi there ${response.userProfile.name}. I am robot`)));
 
+bot.onTextMessage(/^hi|hello$/i, (message, response) =>
+    response.send(new TextMessage(`Hi there ${response.userProfile.name}. I am robot`)));
+
 bot.onTextMessage(/^delete:/i, (message, response) => {    
     let taskId = message.text.slice(7);
     deleteTask(taskId, response);
@@ -116,21 +119,35 @@ function addTask(message, response){
 }
 
 function saveTask(message, response){
-        let newItemRef = itemsRef.push({"details": message.text});          
-        let itemId = newItemRef.key;
+
         addNewTask = false;
-        response.send(new TextMessage(`Great! You have added new task`)).then(()=>{
+
+
+        db.collection('Tasks').add({
+           
+            details:message.text
+            
+          }).then(success => {             
+            response.send(new TextMessage(`Great! You have added new task`)).then(()=>{
             viewTasks(response);
         });   
+          }).catch(error => {
+            console.log(error);
+      });   
+
+
+
+          
 }
 
 function viewTasks(response){
 
-    itemsRef.once("value", function(snapshot) {
-            
-        var arr = [];
-        snapshot.forEach(function(data) {
-            const img = {
+    db.collection('Tasks').get()
+  .then((snapshot) => {
+    var arr = [];
+
+    snapshot.forEach((doc) => {  
+           const img = {
                     "Columns":6,
                     "Rows":5,
                     "ActionType":"none",           
@@ -159,18 +176,25 @@ function viewTasks(response){
             
             arr.push(img);
             arr.push(body);
-            arr.push(cta);
-        }); 
+            arr.push(cta);     
+    });
 
-        const SAMPLE_RICH_MEDIA = {
+    
+
+    const SAMPLE_RICH_MEDIA = {
             "ButtonsGroupColumns": 6,
             "ButtonsGroupRows": 7,
             "BgColor": "#FFFFFF",
             "Buttons": arr,
-        };
+            };
 
-        response.send(new RichMediaMessage(SAMPLE_RICH_MEDIA));
-    });    
+            response.send(new RichMediaMessage(SAMPLE_RICH_MEDIA)); 
+  })
+  .catch((err) => {
+    console.log('Error getting documents', err);
+  });
+
+        
 }
 
 function deleteTask(taskId, response){          
