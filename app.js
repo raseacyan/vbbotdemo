@@ -199,9 +199,11 @@ function viewTasks(response){
 }
 
 function deleteTask(taskId, response){  
-  db.collection('Tasks').doc(taskId).delete();      
+  db.collection('Tasks').doc(taskId).delete().then(()=>{
+    notifyDelete(response);
+  });      
   
-  notifyDelete(response);
+  
 }
 
 function notifyDelete(response){
