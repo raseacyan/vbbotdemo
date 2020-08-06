@@ -22,8 +22,8 @@ firebase.initializeApp({
   databaseURL: "https://fir-b7a51.firebaseio.com"
 });
 
-var db = firebase.database();
-var itemsRef = db.ref("restricted_access/secret_document/items");
+let db = firebase.firestore(); 
+
 
 const logger = winston.createLogger({
   level: 'debug',
@@ -120,9 +120,7 @@ function addTask(message, response){
 
 }
 
-function saveTask(message, response){
-
-        
+function saveTask(message, response){       
 
 
         db.collection('Tasks').add({
