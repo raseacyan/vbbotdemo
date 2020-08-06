@@ -198,9 +198,9 @@ function viewTasks(response){
         
 }
 
-function deleteTask(taskId, response){          
-  let itemRemove = itemsRef.child(taskId);          
-  itemRemove.remove();
+function deleteTask(taskId, response){  
+  db.collection('Tasks').doc(taskId).delete();      
+  
   notifyDelete(response);
 }
 
